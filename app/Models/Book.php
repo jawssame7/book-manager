@@ -28,16 +28,16 @@ class Book extends Model
         return Book::where('deleted_at', null)->orderBy('name', $order)->get();
     }
 
-    /**
-     * 関連テーブル込ですべて取得
-     * @return mixed
-     */
-    public function bookAll()
-    {
-        $query = Book::all();
+    // /**
+    //  * 関連テーブル込ですべて取得
+    //  * @return mixed
+    //  */
+    // public function bookAll()
+    // {
+    //     $query = Book::all();
 
-        return $query->get();
-    }
+    //     return $query->get();
+    // }
 
     public function queryBuilderJoin()
     {
