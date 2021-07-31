@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.ui.fixed.inverted.menu.admin-menu {
+    background-color: #000000;
+}
+
+.header.item.title {
+    padding-left: 0;
+}
+
+.menu-main-title {
+    padding-top: 1px;
+    font-size: 1.2em;
+}
+
+.content.main-content {
+    padding-top: 70px !important;
+}
+
+.content-main {
+    padding-top: 25px;
+}
+
+th.action {
+    width: 180px;
+}
+
+.ui.modal > .content {
+    padding: 25px !important;
+}
+
+input[type=file][name=thumbnail_file] {
+    display: none;
+}
+
+.thumbnail-area {
+    width: 130px;
+    text-align: center;
+}
