@@ -3,7 +3,7 @@
         確認
     </div>
     <div class="content">
-        <p>選択した保管場所を削除していいでしょうか?</p>
+        <p>選択したデータを削除していいでしょうか?</p>
     </div>
     <div class="actions">
         <div class="ui negative button">

@@ -5,8 +5,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+
 
 /**
  * ユーザー管理
@@ -63,7 +66,7 @@ class EmployeeController extends Controller
             ['pagenate_params' => [
                 'name' => $name,
                 'deleted_at' => $deletedAt]
-            , 'users' => $employees]);
+            , 'employees' => $employees]);
     }
 
     /**
@@ -116,13 +119,13 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employee = Employee::find($id);
-        return view('admin.employees.edit', ['user' => $employee]);
+        return view('admin.employees.edit', ['employee' => $employee]);
     }
 
     /**
      * ユーザーの更新アクション
      * @param Request $request
-     * @param User $user
+     * @param Employee $employee
      * @return mixed
      */
     public function update(Request $request, Employee $employee)
@@ -149,6 +152,77 @@ class EmployeeController extends Controller
 
         return redirect()->action([EmployeeController::class, 'index'])
             ->withSuccess('データを削除しました。');
+    }
+
+    /**
+     * CSVインポートアクション ajax
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function empImportCsv(Request $request)
+    {
+
+        $data = [];
+
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:csv,txt|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            $data['success'] = false;
+            $data['error'] = $validator->errors()->first('file');
+
+        } else {
+            $file = $request->file('file');
+
+            $absolutePath = env('DOCUMENT_ROOT');
+
+            $tmpCsvPath = config('const.PUBLIC_TMP_CSV_PATH');
+
+            // ファイル名を現在時刻で設定
+            $filename = 'csv_import_'.date('YmdHis').'.csv';
+
+            // 一時領域保存場所にCSVファイルを配置
+            $file->storeAs($tmpCsvPath, $filename);
+
+            // サーバー内ファイルの絶対パス
+            $absoluteFilePath = $absolutePath . '/' . config('const.STORAGE_TMP_CSV_PATH') . '/' . $filename;
+
+            //dump($tmpCsvPath, $filename, $absolutePath);
+
+            // csvファイル
+            $csvObj = new \SplFileObject($absoluteFilePath);
+            $csvObj->setFlags(\SplFileObject::READ_CSV);
+
+            $dataCsv = [];
+            foreach ($csvObj as $i => $line) {
+                // 先頭行は、タイトルなので除外
+                if ($i > 0) {
+                    // TODO ファイル内容のチェック
+                    $ret = [
+                        'name' => $line[0],
+                        'email' => $line[1]
+                    ];
+                    $dataCsv[] = $ret;
+                }
+            }
+
+            // dump($dataCsv);
+
+            $employees = Employee::insert($dataCsv);
+//            dd($employees);
+
+            if ($employees) {
+                $data['success'] = true;
+                $data['message'] = 'データのインポートしました。';
+                return response()->json($data);
+            } else {
+                $data['success'] = false;
+                $data['error'] = 'データのインポートに失敗しました。';
+                return response()->json($data);
+            }
+        }
+        return response()->json($data);
     }
 
 }

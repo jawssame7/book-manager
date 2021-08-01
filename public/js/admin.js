@@ -205,6 +205,59 @@ $(function () {
         return false;
     });
 
+    // 使用者管理 csvインポートボタン
+    $('.new-entry-emp-csv').click(function () {
+        var el = this,
+            $el = $(el),
+            $fileFeild = $('input[name=emp_csv_file]');
+
+        $el.addClass('disabled');
+        $el.addClass('loading');
+
+        // ファイルフィールドをクリック
+        $fileFeild.click();
+        return false;
+    });
+
+    // 書使用者管理 csvファイルフィールド
+    $('input[name=emp_csv_file]').change(function () {
+        var el = this,
+            $el = $(el),
+            $addBtn = $('.new-entry-emp-csv'),
+            file,
+            url,
+            $modal,
+            $msg;
+
+        file = el.files.length > 0 ? el.files[0] : null;
+        if (!file) {
+            return;
+        }
+
+        url = location.pathname  + '/empImportCsv';
+
+        fileUpload(file, url, function (res) {
+            if (res.success) {
+                $addBtn.removeClass('loading');
+                $modal = $('.mini.modal.ajax-err-modal');
+                $msg = $modal.find('.message');
+                $msg.text(res.message);
+
+            } else {
+                $modal = $('.mini.modal.ajax-err-modal');
+                $msg = $modal.find('.message');
+
+                $msg.text(res.error);
+            }
+
+            $modal.modal({
+                onHide: function () {
+                    location.reload();
+                }
+            }).modal('show');
+        });
+    });
+
 });
 
 /**

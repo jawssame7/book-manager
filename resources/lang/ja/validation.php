@@ -149,7 +149,10 @@ return [
     'attributes' => [
         'name' => '名前',
         'email' => 'メールアドレス',
-        'place' => '保管場所'
+        'place' => '保管場所',
+        'place_id' => '保管場所',
+        'user_id' => '保管場所',
+        'file' => 'ファイル'
     ],
 
 ];

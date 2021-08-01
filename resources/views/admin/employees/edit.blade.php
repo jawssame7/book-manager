@@ -1,3 +1,5 @@
+@section('title', '使用者の編集')
+
 @php
     $active_employee = 'active';
 @endphp
@@ -10,9 +12,9 @@
 
 @section('content')
     <div class="content-top">
-        <h3>ユーザー管理 - ユーザーの編集</h3>
+        <h3>使用者管理 - @yield('title')</h3>
         <div class="ui segment">
-            <form class="ui form edit-entry-form" method="post" action="{{route('users.update', ['user' => $user['id']])}}">
+            <form class="ui form edit-entry-form" method="post" action="{{route('employee.update', ['employee' => $employee['id']])}}">
                 @method('PUT')
                 <h4 class="ui dividing header">編集するユーザー</h4>
                 <div class="ui error message" style="@if ($errors->any()) display:block; @endif">
@@ -30,7 +32,7 @@
                     <label>名前</label>
                     <div class="two fields">
                         <div class="field @error('name') error @enderror">
-                            <input type="text" name="name" placeholder="名前" @if (old('name'))value="{{old('name')}}@else value="{{$user['name']}}@endif">
+                            <input type="text" name="name" placeholder="名前" @if (old('name'))value="{{old('name')}}@else value="{{$employee['name']}}@endif">
                             @error('name')
                             <div class="ui pointing red basic label">
                                 {{ $message }}
@@ -43,7 +45,7 @@
                     <label>メールアドレス</label>
                     <div class="two fields">
                         <div class="field @error('email') error @enderror">
-                            <input type="text" name="email" placeholder="メールアドレス" @if (old('email'))value="{{old('email')}}@else value="{{$user['email']}}@endif">
+                            <input type="text" name="email" placeholder="メールアドレス" @if (old('email'))value="{{old('email')}}@else value="{{$employee['email']}}@endif">
                             @error('email')
                             <div class="ui pointing red basic label">
                                 {{ $message }}

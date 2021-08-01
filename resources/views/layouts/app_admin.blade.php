@@ -20,7 +20,7 @@
         <div class="ui secondary menu">
             <a class="item @isset($active_book){{ $active_book }}@endisset" href="{{route('books.index')}}">書籍管理</a>
             <a class="item @isset($active_place){{ $active_place }}@endisset" href="{{route('places.index')}}">保管場所管理</a>
-            <a class="item @isset($active_employee){{ $active_employee }}@endisset" href="{{route('employee.index')}}">ユーザー管理</a>
+            <a class="item @isset($active_employee){{ $active_employee }}@endisset" href="{{route('employee.index')}}">使用者管理</a>
         </div>
         <div class="right menu">
             {{-- <a class="ui item">

@@ -37,3 +37,7 @@ input[type=file][name=thumbnail_file] {
     width: 130px;
     text-align: center;
 }
+
+input[type=file][name=emp_csv_file] {
+    display: none;
+}

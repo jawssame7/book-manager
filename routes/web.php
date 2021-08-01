@@ -22,7 +22,8 @@ use App\Http\Controllers\admin\BookController;
 // });
 
 Route::get('/', function () {
-    return view('test.test');
+    // return view('test.test');
+    return redirect()->action([BookController::class, 'index']);
 });
 
 // admin
@@ -33,3 +34,5 @@ Route::resource('admin/books', BookController::class);
 Route::post('admin/books/uploadThumbnail', [BookController::class, 'uploadThumbnail']);
 // ファイル削除
 Route::post('admin/books/clearThumbnail', [BookController::class, 'clearThumbnail']);
+// ユーザーCSV
+Route::post('admin/employee/empImportCsv', [EmployeeController::class, 'empImportCsv']);

@@ -1,3 +1,5 @@
+@section('title', '使用者の登録')
+
 @php
     $active_employee = 'active';
 @endphp
@@ -6,7 +8,7 @@
 
 @section('content')
     <div class="content-top">
-        <h3>ユーザー管理 - ユーザーの登録</h3>
+        <h3>使用者管理 - @yield('title')</h3>
         <div class="ui segment">
             <form class="ui form new-entry-form" method="POST">
                 <h4 class="ui dividing header">登録するユーザー</h4>

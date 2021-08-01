@@ -1,3 +1,5 @@
+@section('title', '保管場所管理')
+
 @php
     $active_place = 'active';
 @endphp
@@ -6,7 +8,7 @@
 
 @section('content')
     <div class="content-top">
-        <h3>保管場所管理</h3>
+        <h3>@yield('title')</h3>
         <x-admin.common.flash_message />
         <div class="ui segment">
             <form class="ui form" action="{{route('places.index')}}">

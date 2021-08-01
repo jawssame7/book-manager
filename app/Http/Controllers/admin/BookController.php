@@ -66,6 +66,7 @@ class BookController extends Controller
         $places = Place::get();
         // 使用者
         $employees = Employee::get();
+//        dd($employees);
 
         return view('admin.books.index',
             [
@@ -187,7 +188,7 @@ class BookController extends Controller
         $data = [];
 
         $validator = Validator::make($request->all(), [
-            'file' => 'required|mimes:png,jpg,jpeg,csv,txt,pdf|max:2048'
+            'file' => 'required|mimes:png,jpg,jpeg|max:2048'
         ]);
 
         if ($validator->fails()) {

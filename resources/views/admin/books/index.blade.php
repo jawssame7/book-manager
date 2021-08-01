@@ -32,7 +32,7 @@
                                 <option value="0"></option>
                                 @foreach ($places as $place)
                                     <option value="{{ $place->id }}"
-                                        {{ $page_params_place_val === strval($place->id) ? 'selected' : '' }}>
+                                        {{ $page_params_place_val === (string)$place->id ? 'selected' : '' }}>
                                         {{ $place->name }}
                                     </option>
                                 @endforeach
@@ -47,9 +47,9 @@
                             <select name="employee_id" class="ui fluid dropdown">
                                 <option value="0"></option>
                                 @foreach ($employees as $employee)
-                                    <option value="{{ $employees->id }}"
-                                        {{ $page_params_emp_val === strval($employees->id) ? 'selected' : '' }}>
-                                        {{ $employees->name }}
+                                    <option value="{{ $employee->id }}"
+                                        {{ $page_params_emp_val === (string)$employee->id ? 'selected' : '' }}>
+                                        {{ $employee->name }}
                                     </option>
                                 @endforeach
                             </select>
