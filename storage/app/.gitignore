@@ -1,3 +1,5 @@
 *
 !public/
+!public/thumnails/no-image.png
+!public/tmp/csv
 !.gitignore
