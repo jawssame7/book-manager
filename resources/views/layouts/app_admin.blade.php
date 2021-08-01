@@ -14,8 +14,8 @@
 <body>
 <div class="ui fixed inverted menu admin-menu">
     <div class="ui container">
-        <a href="#" class="header item title">
-            <span class="menu-main-title">Book-mngr Admin</span>
+        <a href="{{route('books.index')}}" class="header item title">
+            <span class="menu-main-title">Book-Manager Admin</span>
         </a>
         <div class="ui secondary menu">
             <a class="item @isset($active_book){{ $active_book }}@endisset" href="{{route('books.index')}}">書籍管理</a>
